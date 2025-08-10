@@ -1,0 +1,456 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wellbeing & Productivity Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/heroicons@2.0.16/dist/outline/index.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            700: '#1e40af'
+                        },
+                        success: {
+                            50: '#ecfdf5',
+                            500: '#10b981',
+                            600: '#059669'
+                        },
+                        warning: {
+                            50: '#fffbeb',
+                            500: '#f59e0b',
+                            600: '#d97706'
+                        },
+                        danger: {
+                            50: '#fef2f2',
+                            500: '#ef4444',
+                            600: '#dc2626'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-gray-50 font-inter">
+    <!-- @COMPONENT: AppLayout -->
+    <div class="min-h-screen flex">
+        <!-- @COMPONENT: Sidebar -->
+        <aside class="w-64 bg-white shadow-sm border-r border-gray-200 flex flex-col">
+            <!-- Logo & Brand -->
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <span class="text-lg font-semibold text-gray-900">WellnessHub</span>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 p-4 space-y-2">
+                <a href="#" class="flex items-center space-x-3 px-3 py-2 bg-primary-50 text-primary-700 rounded-lg font-medium">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    <span>Wellbeing</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    <span>Productivity</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                    <span>Team Analytics</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <span>Reports</span>
+                </a>
+            </nav>
+
+            <!-- User Profile -->
+            <div class="p-4 border-t border-gray-200">
+                <div class="flex items-center space-x-3">
+                    <!-- Profile image placeholder with proper object-fit -->
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=150&h=150" alt="User profile" class="w-10 h-10 rounded-full object-cover" />
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate" data-bind="user.name">Sarah Johnson</p>
+                        <p class="text-xs text-gray-500 truncate" data-bind="user.role">Product Manager</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-500">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </aside>
+        <!-- @END_COMPONENT: Sidebar -->
+
+        <!-- @COMPONENT: MainContent -->
+        <main class="flex-1 overflow-auto">
+            <!-- @COMPONENT: Header -->
+            <header class="bg-white border-b border-gray-200 px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-2xl font-semibold text-gray-900">Dashboard</h1>
+                        <p class="text-sm text-gray-500 mt-1">Welcome back, track your wellbeing and productivity</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <!-- Role Selector -->
+                        <select class="bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent" data-event="change:handleRoleChange">
+                            <option value="employee">Employee View</option>
+                            <option value="manager">Manager View</option>
+                            <option value="hr">HR Admin View</option>
+                        </select>
+                        
+                        <!-- Notifications -->
+                        <button class="relative p-2 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-3.5-3.5M9 17H4l3.5-3.5M12 3v4.5m0 9V21m4.5-4.5L21 12l-4.5-4.5M7.5 7.5L3 12l4.5 4.5"></path>
+                            </svg>
+                            <span class="absolute -top-1 -right-1 w-3 h-3 bg-danger-500 rounded-full"></span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+            <!-- @END_COMPONENT: Header -->
+
+            <!-- @COMPONENT: DashboardContent -->
+            <div class="p-6">
+                <!-- Wellbeing Overview Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- @COMPONENT: MetricCard -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Wellbeing Score</p>
+                                <p class="text-2xl font-bold text-gray-900 mt-2" data-bind="metrics.wellbeingScore">8.2</p>
+                                <p class="text-xs text-success-600 mt-1">↗ +0.3 from last week</p>
+                            </div>
+                            <div class="w-12 h-12 bg-success-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-success-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Productivity Score</p>
+                                <p class="text-2xl font-bold text-gray-900 mt-2" data-bind="metrics.productivityScore">7.8</p>
+                                <p class="text-xs text-warning-600 mt-1">↘ -0.1 from last week</p>
+                            </div>
+                            <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Work-Life Balance</p>
+                                <p class="text-2xl font-bold text-gray-900 mt-2" data-bind="metrics.workLifeBalance">7.5</p>
+                                <p class="text-xs text-success-600 mt-1">↗ +0.2 from last week</p>
+                            </div>
+                            <div class="w-12 h-12 bg-warning-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-warning-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16l3-3m-3 3l-3-3"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-600">Stress Level</p>
+                                <p class="text-2xl font-bold text-gray-900 mt-2" data-bind="metrics.stressLevel">Low</p>
+                                <p class="text-xs text-success-600 mt-1">Improved from medium</p>
+                            </div>
+                            <div class="w-12 h-12 bg-success-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-success-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- @END_COMPONENT: MetricCard -->
+                </div>
+
+                <!-- Charts Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <!-- @COMPONENT: WellbeingTrendChart -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-900">Wellbeing Trend</h3>
+                            <select class="text-sm border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-primary-500">
+                                <option>Last 7 days</option>
+                                <option>Last 30 days</option>
+                                <option>Last 3 months</option>
+                            </select>
+                        </div>
+                        <div class="h-64">
+                            <canvas id="wellbeingChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                    <!-- @END_COMPONENT: WellbeingTrendChart -->
+
+                    <!-- @COMPONENT: ProductivityChart -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold text-gray-900">Productivity Patterns</h3>
+                            <select class="text-sm border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-primary-500">
+                                <option>This week</option>
+                                <option>Last week</option>
+                                <option>This month</option>
+                            </select>
+                        </div>
+                        <div class="h-64">
+                            <canvas id="productivityChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                    <!-- @END_COMPONENT: ProductivityChart -->
+                </div>
+
+                <!-- AI Recommendations & Team Insights -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- @COMPONENT: AIRecommendations -->
+                    <div class="lg:col-span-2 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">AI-Powered Recommendations</h3>
+                        <div class="space-y-4">
+                            <!-- @MAP: recommendations.map(recommendation => ( -->
+                            <div class="flex items-start space-x-3 p-3 bg-primary-50 rounded-lg border border-primary-200" data-mock="true">
+                                <div class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-medium text-gray-900">Take a 15-minute break</h4>
+                                    <p class="text-sm text-gray-600 mt-1">You've been in focus mode for 2.5 hours. A short break can help maintain productivity.</p>
+                                    <button class="text-sm text-primary-600 hover:text-primary-700 mt-2 font-medium">Start break timer</button>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-3 p-3 bg-success-50 rounded-lg border border-success-200" data-mock="true">
+                                <div class="w-8 h-8 bg-success-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-medium text-gray-900">Schedule mindfulness session</h4>
+                                    <p class="text-sm text-gray-600 mt-1">Based on your stress patterns, a 10-minute mindfulness break could help.</p>
+                                    <button class="text-sm text-success-600 hover:text-success-700 mt-2 font-medium">Book session</button>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-3 p-3 bg-warning-50 rounded-lg border border-warning-200" data-mock="true">
+                                <div class="w-8 h-8 bg-warning-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 15.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-medium text-gray-900">Meeting overload detected</h4>
+                                    <p class="text-sm text-gray-600 mt-1">You have 6 meetings scheduled today. Consider rescheduling non-critical ones.</p>
+                                    <button class="text-sm text-warning-600 hover:text-warning-700 mt-2 font-medium">Review calendar</button>
+                                </div>
+                            </div>
+                            <!-- @END_MAP )) -->
+                        </div>
+                    </div>
+                    <!-- @END_COMPONENT: AIRecommendations -->
+
+                    <!-- @COMPONENT: TeamInsights -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Team Insights</h3>
+                        <div class="space-y-4">
+                            <div class="text-center p-4 bg-gray-50 rounded-lg" data-mock="true">
+                                <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    </svg>
+                                </div>
+                                <p class="text-sm text-gray-600">Team Average</p>
+                                <p class="text-2xl font-bold text-gray-900 mt-1" data-bind="team.averageWellbeing">7.9</p>
+                                <p class="text-xs text-gray-500 mt-1">Wellbeing Score</p>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between" data-mock="true">
+                                    <span class="text-sm text-gray-600">Top Performer</span>
+                                    <span class="text-sm font-medium text-gray-900" data-bind="team.topPerformer">Alex Chen</span>
+                                </div>
+                                <div class="flex items-center justify-between" data-mock="true">
+                                    <span class="text-sm text-gray-600">Needs Support</span>
+                                    <span class="text-sm font-medium text-gray-900" data-bind="team.needsSupport">Mike Johnson</span>
+                                </div>
+                                <div class="flex items-center justify-between" data-mock="true">
+                                    <span class="text-sm text-gray-600">Team Mood</span>
+                                    <span class="text-sm font-medium text-success-600" data-bind="team.mood">Positive</span>
+                                </div>
+                            </div>
+
+                            <button class="w-full mt-4 bg-primary-500 text-white text-sm font-medium py-2 px-4 rounded-lg hover:bg-primary-600 transition-colors" data-event="click:viewTeamDetails">
+                                View Full Team Report
+                            </button>
+                        </div>
+                    </div>
+                    <!-- @END_COMPONENT: TeamInsights -->
+                </div>
+            </div>
+            <!-- @END_COMPONENT: DashboardContent -->
+        </main>
+        <!-- @END_COMPONENT: MainContent -->
+    </div>
+    <!-- @END_COMPONENT: AppLayout -->
+
+    <script>
+        // Initialize charts using IIFE to avoid global scope pollution
+        (function() {
+            // TODO: Implement proper data fetching from backend API
+            
+            // Wellbeing Chart
+            const wellbeingCtx = document.getElementById('wellbeingChart');
+            if (wellbeingCtx) {
+                new Chart(wellbeingCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Wellbeing Score',
+                            data: [7.5, 8.0, 7.8, 8.2, 8.1, 8.3, 8.2],
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                min: 6,
+                                max: 10,
+                                grid: {
+                                    color: '#f3f4f6'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Productivity Chart
+            const productivityCtx = document.getElementById('productivityChart');
+            if (productivityCtx) {
+                new Chart(productivityCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                        datasets: [{
+                            label: 'Focus Hours',
+                            data: [6.5, 7.2, 5.8, 8.1, 6.9],
+                            backgroundColor: '#2563eb',
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 10,
+                                grid: {
+                                    color: '#f3f4f6'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // TODO: Implement role-based dashboard switching
+            // TODO: Implement real-time data updates
+            // TODO: Add proper error handling for chart rendering
+            // TODO: Implement responsive chart behavior for mobile devices
+        })();
+
+        // Mobile responsiveness handler
+        (function() {
+            const sidebar = document.querySelector('aside');
+            const mainContent = document.querySelector('main');
+            
+            function handleResize() {
+                if (window.innerWidth < 768) {
+                    // TODO: Implement mobile sidebar toggle functionality
+                    // TODO: Add hamburger menu for mobile navigation
+                }
+            }
+            
+            window.addEventListener('resize', handleResize);
+            handleResize(); // Initial call
+        })();
+    </script>
+
+    <!-- @FUNCTIONALITY: This dashboard should implement real-time data fetching, role-based access control, and responsive chart updates -->
+    <!-- @STATE: currentUser:object, dashboardData:object, selectedRole:string = 'employee' -->
+    <!-- @IMPLEMENTATION: Should integrate with PostgreSQL for user data and implement proper authentication flow -->
+</body>
+</html>
